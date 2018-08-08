@@ -1,4 +1,34 @@
 /*
+ * DeckLinkCapture.cpp
+ *
+ * This file contains Original Code and Modifications of Original Code
+ * as defined in and that are subject to the Apache License, Version 2.0 (the "License").
+ *
+ * Modifications were made to compile this software on MacOS.
+ * See below for details of the correction points:
+ *
+ *     https://github.com/yas0063/blackmagic-opencv-wrapper
+ *
+ */
+
+/*
+ *
+ *   Copyright 2019 Yasuhiro Sugimoto <yas@mech.eng.osaka-u.ac.jp>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*
  * DeckLinkCapture.cpp - Clase para capturar vídeo desde dispositivos DeckLink
  *
  *   Copyright 2013 Jesús Torres <jmtorres@ull.es>
@@ -28,7 +58,6 @@
 #include "DeckLinkCapture.h"
 #include "DeckLinkInputCallback.h"
 #include "DeckLinkOpenCv.h"
-#include "BstrCompat.h"
 
 DeckLinkCapture::DeckLinkCapture(ComPtr<IDeckLink> deckLink)
     : deckLink_(deckLink),
@@ -198,28 +227,28 @@ DeckLinkCapture& DeckLinkCapture::operator>>(cv::Mat& videoFrame)
 
 std::string DeckLinkCapture::getDeviceModelName()
 {
-    BSTR name;
+    CFStringRef name;
     error_ = deckLink_->GetModelName(&name);
     if (FAILED(error_)) {
         errorString_ = "Error al invocar a IDeckLinkInput::GetModelName()";
         return std::string();
     }
 
-    std::string modelName = BstrToString(name);
-    SysFreeString(name);
+    std::string modelName = CFStringGetCStringPtr(name, NULL);//BstrToString(name);
+    //SysFreeString(name);
     return modelName;
 }
 
 std::string DeckLinkCapture::getDeviceDisplayName()
 {
-    BSTR name;
+    CFStringRef  name;
     error_ = deckLink_->GetDisplayName(&name);
     if (FAILED(error_)) {
-        errorString_ = "Error al invocar a IDeckLinkInput::GetDisplayName()";
+        errorString_ = "Error IDeckLinkInput::GetDisplayName()";
         return std::string();
     }
 
-    std::string displayName = BstrToString(name);
-    SysFreeString(name);
+    std::string displayName = CFStringGetCStringPtr(name, NULL);//BstrToString(name);
+//    SysFreeString(name);
     return displayName;
 }

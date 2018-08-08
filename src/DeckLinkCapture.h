@@ -1,4 +1,35 @@
 /*
+ * DeckLinkCapture.h
+ *
+ * This file contains Original Code and Modifications of Original Code
+ * as defined in and that are subject to the Apache License, Version 2.0 (the "License").
+ *
+ * Modifications were made to compile this software on MacOS.
+ * See below for details of the correction points:
+ *
+ *     https://github.com/yas0063/blackmagic-opencv-wrapper
+ *
+ */
+
+/*
+ *
+ *   Copyright 2019 Yasuhiro Sugimoto <yas@mech.eng.osaka-u.ac.jp>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+
+/*
  * DeckLinkCapture.h - Clase para capturar vídeo desde dispositivos DeckLink
  *
  *   Copyright 2013 Jesús Torres <jmtorres@ull.es>
@@ -44,7 +75,7 @@ class DeckLinkCapture
         std::string getDeviceModelName();
         std::string getDeviceDisplayName();
 
-        bool start(BMDDisplayMode displayMode = bmdModeHD1080i6000,
+        bool start(BMDDisplayMode displayMode = bmdModeHD1080i5994,
             BMDPixelFormat pixelFormat = bmdFormat8BitYUV);
         void stop();
 

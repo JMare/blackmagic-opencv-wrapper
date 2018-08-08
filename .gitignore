@@ -1,2 +1,6 @@
-/Debug
-/build*
+Blackmagic DeckLink SDK* 
+CMakeCache.txt
+CMakeFiles/
+Makefile
+bmdsdk
+cmake_install.cmake
