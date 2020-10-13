@@ -227,28 +227,28 @@ DeckLinkCapture& DeckLinkCapture::operator>>(cv::Mat& videoFrame)
 
 std::string DeckLinkCapture::getDeviceModelName()
 {
-    CFStringRef name;
+    const char * name;
     error_ = deckLink_->GetModelName(&name);
     if (FAILED(error_)) {
         errorString_ = "Error al invocar a IDeckLinkInput::GetModelName()";
         return std::string();
     }
 
-    std::string modelName = CFStringGetCStringPtr(name, NULL);//BstrToString(name);
+    std::string modelName = name;
     //SysFreeString(name);
     return modelName;
 }
 
 std::string DeckLinkCapture::getDeviceDisplayName()
 {
-    CFStringRef  name;
+    const char *  name;
     error_ = deckLink_->GetDisplayName(&name);
     if (FAILED(error_)) {
         errorString_ = "Error IDeckLinkInput::GetDisplayName()";
         return std::string();
     }
 
-    std::string displayName = CFStringGetCStringPtr(name, NULL);//BstrToString(name);
+    std::string displayName = name;
 //    SysFreeString(name);
     return displayName;
 }

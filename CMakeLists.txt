@@ -42,11 +42,13 @@ endif (DeckLink_EXTRA_CODE_CPP)
 set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
+set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Boost REQUIRED COMPONENTS thread)
 
 set(OpenCV_SHARED ON)
 set(OpenCV_STATIC OFF)
 find_package(OpenCV REQUIRED)
+find_package(Threads REQUIRED)
 set_target_properties(${OpenCV_LIBS} PROPERTIES MAP_IMPORTED_CONFIG_RELWITHDEBINFO RELEASE)
 set_target_properties(${OpenCV_LIBS} PROPERTIES MAP_IMPORTED_CONFIG_MINSIZEREL RELEASE)
 
@@ -67,7 +69,9 @@ target_link_libraries(blackmagic_test
 ${OpenCV_LIBS}
 ${DeckLink_LIBRARIES}
 ${BOOST_Libraries}
-${EXTRA_LIBS})
+${EXTRA_LIBS}
+${CMAKE_DL_LIBS}
+Threads::Threads)
 
 
 
